@@ -96,6 +96,13 @@
             $('#msg-text').text("Error");
             $(".alert").show();
           }
+        },
+        error: function(req, status, err) {
+          if(status == "timeout") {
+            $('#msg-area').addClass("alert-danger");
+            $('#msg-text').text("Timeout Error");
+            $(".alert").show();
+          }
         }
       });
     }
