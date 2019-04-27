@@ -25,7 +25,8 @@ def fibonacci_view(request):
             "error": "incorrect input data",
         })
         print(e)
-
+    
+    time, value, funcs = utils.timed_nth_fibonacci_string(query)
     json = {
         "data": {
             "value": value,
