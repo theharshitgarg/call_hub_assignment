@@ -9,7 +9,7 @@ def nth_fibonacci(n):
     second = 1
     third = first + second
 
-    for counter in range(3, n + 1):
+    for counter in xrange(3, n + 1):
         third = first + second
         first = second
         second = third
@@ -79,7 +79,7 @@ def nth_fibonacci_string(n):
     second = "1"
     third = first + second
 
-    for counter in range(3, n + 1):
+    for counter in xrange(3, n + 1):
         third = string_addition(first, second)
         first = second
         second = third
