@@ -25,7 +25,7 @@ SECRET_KEY = 'lc#a3s#+hb1h0j1r84y-a=4u^e+=1##@v&l492o!9%tnbu9tvt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mathematics-services.herokuapp.com', 'localhost']
 
 
 # Application definition
