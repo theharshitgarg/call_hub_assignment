@@ -11,39 +11,39 @@ from .utils import timed_nth_fibonacci, timed_fast_nth_fibonacci, timed_nth_fibo
 
 @ratelimit(key='get:q', method=ratelimit.ALL, rate='10/m', block=True)
 def fibonacci_view(request):
-	success = True
-	value = None
-	time = None
-	errors = []
-	try:
-		query = int(request.GET.get("q"))
-	except Exception as e:
-		success = False
-		errors.append({
-				"description": str(e),
-				"error": "incorrect input data",
-			})
-		print(e)
+    success = True
+    value = None
+    time = None
+    errors = []
+    try:
+        query = int(request.GET.get("q"))
+    except Exception as e:
+        success = False
+        errors.append({
+            "description": str(e),
+            "error": "incorrect input data",
+        })
+        print(e)
 
-	ans = [0, 0]
-	time, value, funcs = timed_nth_fibonacci_string(query)
+    ans = [0, 0]
+    time, value, funcs = timed_nth_fibonacci_string(query)
 
-	json = {
-		"data": {
-			"value": value,
-			"sequence_number": request.GET.get("q"),
-			"calculation_time": {
-				"value": time,
-				"unit": "seconds",
-			}
-		},
-		"success": success,
-	}
+    json = {
+        "data": {
+            "value": value,
+            "sequence_number": request.GET.get("q"),
+            "calculation_time": {
+                "value": time,
+                "unit": "seconds",
+            }
+        },
+        "success": success,
+    }
 
-	return JsonResponse(json)
+    return JsonResponse(json)
 
 
 @ratelimit(key='get:q', method=ratelimit.ALL, rate='100/m', block=True)
 def fibonacci_html_view(request):
-	
-	return render(request, 'fibonacci.html')
+
+    return render(request, 'fibonacci.html')
