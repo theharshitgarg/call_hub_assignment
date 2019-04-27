@@ -5,8 +5,7 @@ from django.shortcuts import render
 from django.http import Http404, JsonResponse
 from ratelimit.decorators import ratelimit
 
-
-from .utils import timed_nth_fibonacci, timed_fast_nth_fibonacci, timed_nth_fibonacci_string
+from mathcompute import utils
 
 
 @ratelimit(key='get:q', method=ratelimit.ALL, rate='10/m', block=True)
@@ -17,6 +16,8 @@ def fibonacci_view(request):
     errors = []
     try:
         query = int(request.GET.get("q"))
+        time, value, funcs = utils.timed_nth_fibonacci_string(query)
+
     except Exception as e:
         success = False
         errors.append({
@@ -24,9 +25,6 @@ def fibonacci_view(request):
             "error": "incorrect input data",
         })
         print(e)
-
-    ans = [0, 0]
-    time, value, funcs = timed_nth_fibonacci_string(query)
 
     json = {
         "data": {

@@ -87,6 +87,4 @@ def nth_fibonacci_string(n):
     return third
 
 
-timed_nth_fibonacci = decorators.time_calc(nth_fibonacci)
-timed_fast_nth_fibonacci = decorators.time_calc(fast_nth_fibonacci)
 timed_nth_fibonacci_string = decorators.time_calc(nth_fibonacci_string)

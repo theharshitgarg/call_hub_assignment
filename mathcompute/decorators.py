@@ -3,7 +3,6 @@ import time
 
 
 def time_calc(func):
-    @functools.wraps
     def wrapper(*args, **kwargs):
         start = time.time()
         ans = func(*args, **kwargs)
