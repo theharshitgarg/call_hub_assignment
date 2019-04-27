@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Fibonacci Service{% endblock %}
+
+{% block css_sheets %}
+  <link rel="stylesheet" type="text/css" href="{% static 'mathcompute/mathcompute.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{msg.message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="row">
+      <div class="col-xs-6">
+      </div>
+
+      <div class="col-xs-6">
+        <div class="alert" id="msg-area">
+            <button type="button" class="close" onclick="$('.alert').hide()" aria-hidden="true">&times;</button>
+            <div id="msg-text" class="text-center"></div>
+          </div>    
+      </div>
+    </div
+
+    <div class="" id="fib-services">
+        <div class="row" id="compuer-row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">Compute nth Fibonacci element</div>
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <input type="number" class="form-control" id="fib-nth-value" min="1">
+                    </div>
+                  </div>
+                  <div class="panel-footer"><a class="btn btn-primary" onclick="computeFibonacci()">Compute</a></div>
+                </div>        
+            </div>
+        </div>
+
+        <div class="row" id="result-row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading" id="result-heading">Result</div>
+                  <div class="panel-body">
+                    <p class="text-overflow">
+                      <strong>Value: </strong><span id="value">NULL</span>
+                    </p>
+                    <p class="text-overflow">
+                      <strong>Time Taken: </strong><span id="cal-time">NULL</span>
+                    </p>
+                  </div>
+                </div>        
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_scripts %}
+  <script type="text/javascript" charset="utf-8" async defer>
+    $('#msg-area').hide();
+
+    function computeFibonacci(event) {
+      var text = $("#fib-nth-value").val().trim();
+      var url = "{% url 'fibonacci_api' %}?q=";
+      $("#result-heading").html("Computing Result ...");
+      $("#value").html('NULL');
+      $("#cal-time").html('NULL');
+      $(".alert").hide();
+      url = url+text;
+      $.ajax({
+        url: url,
+        type: "GET",
+        dataType: 'json', 
+        success: function (data) {
+          if (data.success) {
+            $("#result-heading").html("Result");
+            $("#value").html(data["data"]["value"]);
+            var t = data["data"]["calculation_time"]["value"] + " " + data["data"]["calculation_time"]["unit"];
+            $("#cal-time").html(t);
+            $('#msg-area').addClass("alert-success");
+            $('#msg-text').text("Calculated successfully");
+            $(".alert").show();
+            $(".alert").fadeIn(2000, 'linear');
+          }
+          else {
+            $("#value").html('NULL');
+            $("#cal-time").html('NULL');
+            $('#msg-area').addClass("alert-danger");
+            $('#msg-text').text("Error");
+            $(".alert").show();
+          }
+        }
+      });
+    }
+  </script>
+
+{% endblock %}

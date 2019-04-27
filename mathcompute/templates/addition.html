@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">MathCompute Services</h1>
+        <p class="lead">This is a simple app that provides mathematics computation services</p>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </div>    
+    
+    <h3>Services List</h3>
+    <div class="" id="services-list">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">Fibonacci</div>
+                  <div class="panel-body">This generates nth fibonacci number</div>
+                  <div class="panel-footer"><a class="btn btn-primary">Go to service</a></div>
+                </div>        
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">Addition</div>
+                  <div class="panel-body">This service adds numbers</div>
+                  <div class="panel-footer"><a class="btn btn-primary">Go to service</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
