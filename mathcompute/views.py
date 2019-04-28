@@ -16,7 +16,14 @@ def fibonacci_view(request):
     errors = []
     try:
         query = int(request.GET.get("q"))
-        time, value, funcs = utils.timed_nth_fibonacci_string(query)
+        if query > 0:
+            time, value, funcs = utils.timed_nth_fibonacci_string_new(query)
+        else:
+            success = False
+            errors.append({
+                "description": "Incorrect Value " + str(query),
+                "error": "incorrect input data",
+            })
 
     except Exception as e:
         success = False
@@ -26,7 +33,6 @@ def fibonacci_view(request):
         })
         print(e)
     
-    time, value, funcs = utils.timed_nth_fibonacci_string(query)
     json = {
         "data": {
             "value": value,

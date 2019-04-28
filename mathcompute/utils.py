@@ -1,7 +1,12 @@
+import math
 from mathcompute import decorators
+
+REF_POWER = 15
+MAX_NUMBER = 10**REF_POWER
 
 
 def nth_fibonacci(n):
+    """Computes the fibonacci number in the iterative way."""
     if n <= 2:
         return 1
 
@@ -17,32 +22,8 @@ def nth_fibonacci(n):
     return third
 
 
-def fast_nth_fibonacci(n, ans):
-    if n == 0:
-        ans[0] = 1
-        ans[1] = 1
-
-        return ans
-
-    fast_nth_fibonacci(n / 2, ans)
-    a = ans[0]
-    b = ans[1]
-    c = 2 * b - a
-    c = a * c
-    d = a * a + b * b
-
-    if n % 2 == 0:
-        ans[0] = c
-        ans[1] = d
-
-    else:
-        ans[0] = d
-        ans[1] = c + d
-
-    return ans
-
-
 def string_addition(num1, num2):
+    """Adds two numbers in format."""
     ans = ""
     length1 = len(num1)
     length2 = len(num2)
@@ -72,6 +53,7 @@ def string_addition(num1, num2):
 
 
 def nth_fibonacci_string(n):
+    """Computes the fibonacci number using string."""
     if n <= 2:
         return "1"
 
@@ -80,7 +62,64 @@ def nth_fibonacci_string(n):
     third = first + second
 
     for counter in xrange(3, n + 1):
-        third = string_addition(first, second)
+        third = string_addition_new(first, second)
+        first = second
+        second = third
+
+    return third
+
+
+def string_addition_new_final(num1, num2):
+    """
+    Adds two numbers in string format.
+    Handles positive numbers only.
+    """
+    length1 = len(num1)
+    length2 = len(num2)
+    length = max(length1, length2)
+
+    if num1 == "0" and num2 == "0":
+        return "0"
+
+    ans = []
+    r1 = num1[::-1]
+    r2 = num2[::-1]
+    for i in xrange(0, length, REF_POWER):
+        first = r1[i:i + REF_POWER][::-1]
+        second = r2[i:i + REF_POWER][::-1]
+        try:
+            first = int(first)
+        except ValueError as e:
+            first = 0
+
+        try:
+            second = int(second)
+        except ValueError as e:
+            second = 0
+
+        a = first + second
+        ans.append(a)
+
+    ans.append(0)
+    for k, v in enumerate(ans):
+        if v >= MAX_NUMBER:
+            ans[k + 1] += 1
+
+        ans[k] = str(v + MAX_NUMBER)[1:]
+
+    return ''.join(ans[::-1]).lstrip("0")
+
+
+def nth_fibonacci_string(n):
+    if n <= 2:
+        return "1"
+
+    first = "1"
+    second = "1"
+    third = first + second
+
+    for counter in xrange(3, n + 1):
+        third = string_addition_new_final(first, second)
         first = second
         second = third
 
@@ -88,3 +127,4 @@ def nth_fibonacci_string(n):
 
 
 timed_nth_fibonacci_string = decorators.time_calc(nth_fibonacci_string)
+timed_nth_fibonacci_string_new = decorators.time_calc(nth_fibonacci_string)
