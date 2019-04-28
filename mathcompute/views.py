@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.http import JsonResponse
 from django.shortcuts import render
-from django.http import Http404, JsonResponse
 from ratelimit.decorators import ratelimit
 
 from mathcompute import utils
@@ -32,7 +32,7 @@ def fibonacci_view(request):
             "error": "incorrect input data",
         })
         print(e)
-    
+
     json = {
         "data": {
             "value": value,

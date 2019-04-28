@@ -1,4 +1,5 @@
 import math
+
 from mathcompute import decorators
 
 REF_POWER = 15
