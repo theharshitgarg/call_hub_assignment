@@ -20,7 +20,7 @@ from fcompute import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^compute/math', include('mathcompute.urls')),
+    url(r'^compute/math/', include('mathcompute.urls')),
     url(r'^$', views.home, name='home'),
     url(r'^login/$', views.main_login, name='login'),
     url(r'^logout/$', views.main_logout, name='logout'),
