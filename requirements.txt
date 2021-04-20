@@ -34,7 +34,7 @@ mccabe==0.6.1
 mpmath==1.1.0
 pbr==5.2.0
 pluggy==0.9.0
-py==1.8.0
+py==1.10.0
 py-spy==0.1.10
 pyactiveresource==2.1.2
 pycallgraph==1.0.1
